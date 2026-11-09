@@ -1,0 +1,137 @@
+{
+ "key": "67813a5f",
+ "stars": 1070,
+ "contributions": 0,
+ "repos": 3,
+ "followers": 1,
+ "languages": [
+  [
+   "Python",
+   5044385
+  ],
+  [
+   "QML",
+   4698375
+  ],
+  [
+   "C++",
+   2225225
+  ],
+  [
+   "JavaScript",
+   601834
+  ],
+  [
+   "CMake",
+   40486
+  ],
+  [
+   "CSS",
+   25050
+  ],
+  [
+   "GLSL",
+   12640
+  ]
+ ],
+ "days": [
+  [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null
+  ]
+ ],
+ "streak": {
+  "current": 0,
+  "longest": 0
+ },
+ "pins": [
+  {
+   "name": "caelestia",
+   "url": "https://github.com/caelestia-kde/caelestia",
+   "text": "Caelestia ported to KDE Plasma 6",
+   "fork": false,
+   "stars": 1064,
+   "language": "QML",
+   "topics": [
+    "caelestia",
+    "dotfiles",
+    "kde",
+    "kde-theme",
+    "linux",
+    "qt6",
+    "quickshell",
+    "wayland"
+   ]
+  },
+  {
+   "name": "plugins",
+   "url": "https://github.com/caelestia-kde/plugins",
+   "text": "A repo to maintain all plugins for caelestia kde",
+   "fork": false,
+   "stars": 6,
+   "language": "Python",
+   "topics": []
+  }
+ ],
+ "all": [
+  {
+   "name": "caelestia",
+   "url": "https://github.com/caelestia-kde/caelestia",
+   "text": "Caelestia ported to KDE Plasma 6",
+   "fork": false,
+   "stars": 1064,
+   "language": "QML",
+   "topics": [
+    "caelestia",
+    "dotfiles",
+    "kde",
+    "kde-theme",
+    "linux",
+    "qt6",
+    "quickshell",
+    "wayland"
+   ]
+  },
+  {
+   "name": "plugins",
+   "url": "https://github.com/caelestia-kde/plugins",
+   "text": "A repo to maintain all plugins for caelestia kde",
+   "fork": false,
+   "stars": 6,
+   "language": "Python",
+   "topics": []
+  },
+  {
+   "name": ".github",
+   "url": "https://github.com/caelestia-kde/.github",
+   "text": "",
+   "fork": false,
+   "stars": 0,
+   "language": "JavaScript",
+   "topics": []
+  }
+ ]
+}
