@@ -242,11 +242,15 @@ async function U2(login) {
             for (let d = 0; d < 7; d++) {
               const dayMs = (weekTs + d * 86400) * 1000;
               const dateStr = new Date(dayMs).toISOString().slice(0, 10);
-              row[d] = {
-                c: daysArr[d],
-                day: +dateStr.slice(8),
-                today: dateStr === today
-              };
+              if (dateStr > today) {
+                row[d] = null;
+              } else {
+                row[d] = {
+                  c: daysArr[d] || 0,
+                  day: +dateStr.slice(8),
+                  today: dateStr === today
+                };
+              }
             }
             days.push(row);
           }
@@ -287,7 +291,7 @@ async function U2(login) {
       }
       streak = j0(counts);
 
-      const todayObj = new Date();
+      const todayObj = new Date(today + "T12:00:00Z");
       const todayUtcDay = todayObj.getUTCDay();
       const currentSunday = new Date(todayObj);
       currentSunday.setUTCDate(todayObj.getUTCDate() - todayUtcDay);
@@ -301,11 +305,15 @@ async function U2(login) {
           const dayDate = new Date(weekSunday);
           dayDate.setUTCDate(weekSunday.getUTCDate() + d);
           const dateStr = dayDate.toISOString().slice(0, 10);
-          row[d] = {
-            c: commitMap[dateStr] || 0,
-            day: +dateStr.slice(8),
-            today: dateStr === today
-          };
+          if (dateStr > today) {
+            row[d] = null;
+          } else {
+            row[d] = {
+              c: commitMap[dateStr] || 0,
+              day: +dateStr.slice(8),
+              today: dateStr === today
+            };
+          }
         }
         days.push(row);
       }
