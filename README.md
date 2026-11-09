@@ -8,7 +8,7 @@ It is automatically updated by [expressive-profile.yml](.github/workflows/expres
 
 To update README layout, [profile.json](profile.json) has to be updated.
 
-Either edit it manually or head to [expressive-profile/](https://metawka.github.io/expressive-profile/) and Download updated layout as Zip. Then push `profile.json` and the workflow should take care of rest.
+Either edit it manually or head to [expressive-profile](https://metawka.github.io/expressive-profile/) and Download updated layout as Zip. Then push `profile.json` and the workflow should take care of rest.
 
 ### Credits:
 - [ladybug-me](https://github.com/ladybug-me) & [0xSolanaceae](https://github.com/0xSolanaceae) - Owners
