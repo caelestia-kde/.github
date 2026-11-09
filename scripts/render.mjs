@@ -74,8 +74,9 @@ function t2(nodes) {
 async function U2(login) {
   const LANGS = "languages(first:10,orderBy:{field:SIZE,direction:DESC}){edges{size node{name}}}";
   const REPO = $0;
+  const sinceDate = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString();
 
-  const query = `query($login:String!){
+  const query = `query($login:String!,$since:GitTimestamp){
     repositoryOwner(login:$login){
       __typename
       ... on User {
@@ -99,7 +100,22 @@ async function U2(login) {
       ... on Organization {
         repositories(privacy:PUBLIC,first:100,orderBy:{field:STARGAZERS,direction:DESC}){
           totalCount
-          nodes { ${REPO} ${LANGS} }
+          nodes {
+            ${REPO}
+            ${LANGS}
+            defaultBranchRef {
+              target {
+                ... on Commit {
+                  history(since:$since,first:100) {
+                    totalCount
+                    nodes {
+                      committedDate
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
         pinnedItems(first:6,types:REPOSITORY){
           nodes { ... on Repository { ${REPO} } }
@@ -108,7 +124,7 @@ async function U2(login) {
     }
   }`;
 
-  const res = await J0(query, { login });
+  const res = await J0(query, { login, since: sinceDate });
   const owner = res?.repositoryOwner;
   if (!owner) throw new Error(`Could not find User or Organization with login: ${login}`);
 
@@ -123,7 +139,7 @@ async function U2(login) {
   } catch {}
 
   const today = new Date().toISOString().slice(0, 10);
-  const days = [];
+  let days = [];
   let streak = { current: 0, longest: 0 };
   let contributions = 0;
   let followers = 0;
@@ -149,7 +165,6 @@ async function U2(login) {
     }
   } else {
     // Organization
-    while (days.length < 3) days.push(Array(7).fill(null));
     try {
       const orgRes = await fetch(`https://api.github.com/orgs/${login}`, {
         headers: {
@@ -162,13 +177,145 @@ async function U2(login) {
         followers = orgData.followers ?? 0;
       }
     } catch {}
+
+    // Calculate commit activity and streak across organization repositories
+    let commitActivitySuccess = false;
+    try {
+      const activities = await Promise.all(
+        nodes.map(async (r) => {
+          try {
+            const actRes = await fetch(`https://api.github.com/repos/${login}/${r.name}/stats/commit_activity`, {
+              headers: {
+                ...(O2 ? { Authorization: `bearer ${O2}` } : {}),
+                "User-Agent": "expressive-profile"
+              }
+            });
+            if (actRes.ok) {
+              const actData = await actRes.json();
+              if (Array.isArray(actData) && actData.length > 0) return actData;
+            }
+          } catch {}
+          return null;
+        })
+      );
+
+      const validActs = activities.filter(Boolean);
+      if (validActs.length > 0) {
+        const weeksMap = new Map();
+        for (const act of validActs) {
+          for (const w of act) {
+            if (!weeksMap.has(w.week)) {
+              weeksMap.set(w.week, [0, 0, 0, 0, 0, 0, 0]);
+            }
+            const current = weeksMap.get(w.week);
+            for (let d = 0; d < 7; d++) {
+              current[d] += w.days[d] || 0;
+            }
+          }
+        }
+
+        const sortedWeeks = [...weeksMap.entries()].sort((a, b) => a[0] - b[0]);
+        if (sortedWeeks.length >= 3) {
+          const counts = [];
+          let totalThisYear = 0;
+          const currentYear = new Date().getUTCFullYear().toString();
+
+          for (const [weekTs, daysArr] of sortedWeeks) {
+            for (let d = 0; d < 7; d++) {
+              const dayMs = (weekTs + d * 86400) * 1000;
+              const dateStr = new Date(dayMs).toISOString().slice(0, 10);
+              if (dateStr <= today) {
+                counts.push(daysArr[d]);
+                if (dateStr.startsWith(currentYear)) {
+                  totalThisYear += daysArr[d];
+                }
+              }
+            }
+          }
+
+          streak = j0(counts);
+          contributions = totalThisYear;
+
+          days = [];
+          for (const [weekTs, daysArr] of sortedWeeks.slice(-3)) {
+            const row = Array(7).fill(null);
+            for (let d = 0; d < 7; d++) {
+              const dayMs = (weekTs + d * 86400) * 1000;
+              const dateStr = new Date(dayMs).toISOString().slice(0, 10);
+              row[d] = {
+                c: daysArr[d],
+                day: +dateStr.slice(8),
+                today: dateStr === today
+              };
+            }
+            days.push(row);
+          }
+
+          commitActivitySuccess = true;
+        }
+      }
+    } catch {}
+
+    // Fallback: Aggregate commit dates from GraphQL repository history
+    if (!commitActivitySuccess) {
+      const commitMap = {};
+      let totalThisYear = 0;
+      const currentYear = new Date().getUTCFullYear().toString();
+
+      for (const r of nodes) {
+        const history = r.defaultBranchRef?.target?.history;
+        for (const c of history?.nodes ?? []) {
+          if (c.committedDate) {
+            const dateStr = c.committedDate.slice(0, 10);
+            commitMap[dateStr] = (commitMap[dateStr] || 0) + 1;
+            if (dateStr.startsWith(currentYear)) {
+              totalThisYear++;
+            }
+          }
+        }
+      }
+
+      contributions = totalThisYear;
+
+      const counts = [];
+      for (let i = 365; i >= 0; i--) {
+        const d = new Date(Date.now() - i * 86400000);
+        const dateStr = d.toISOString().slice(0, 10);
+        if (dateStr <= today) {
+          counts.push(commitMap[dateStr] || 0);
+        }
+      }
+      streak = j0(counts);
+
+      const todayObj = new Date();
+      const todayUtcDay = todayObj.getUTCDay();
+      const currentSunday = new Date(todayObj);
+      currentSunday.setUTCDate(todayObj.getUTCDate() - todayUtcDay);
+
+      days = [];
+      for (let w = 2; w >= 0; w--) {
+        const weekSunday = new Date(currentSunday);
+        weekSunday.setUTCDate(currentSunday.getUTCDate() - w * 7);
+        const row = Array(7).fill(null);
+        for (let d = 0; d < 7; d++) {
+          const dayDate = new Date(weekSunday);
+          dayDate.setUTCDate(weekSunday.getUTCDate() + d);
+          const dateStr = dayDate.toISOString().slice(0, 10);
+          row[d] = {
+            c: commitMap[dateStr] || 0,
+            day: +dateStr.slice(8),
+            today: dateStr === today
+          };
+        }
+        days.push(row);
+      }
+    }
   }
 
   const pinnedNodes = owner.pinnedItems?.nodes?.filter(Boolean) ?? [];
   const pins = pinnedNodes.map(_0);
   const all = nodes.map(_0);
 
-  // If pins is empty (no pinned items configured), fallback to top non-fork repos
   const effectivePins = pins.length > 0 ? pins : all.filter(r => !r.fork).slice(0, 6);
 
   return {
