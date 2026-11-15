@@ -1,7 +1,7 @@
 {
- "key": "f57fca30",
- "stars": 1094,
- "contributions": 2499,
+ "key": "3ca26f61",
+ "stars": 1096,
+ "contributions": 231,
  "repos": 3,
  "followers": 3,
  "languages": [
@@ -37,54 +37,17 @@
  "days": [
   [
    {
-    "c": 33,
-    "day": 25,
-    "today": false
-   },
-   {
-    "c": 12,
-    "day": 26,
-    "today": false
-   },
-   {
-    "c": 5,
-    "day": 27,
-    "today": false
-   },
-   {
-    "c": 37,
-    "day": 28,
-    "today": false
-   },
-   {
-    "c": 19,
-    "day": 29,
-    "today": false
-   },
-   {
-    "c": 8,
-    "day": 30,
-    "today": false
-   },
-   {
-    "c": 15,
-    "day": 31,
-    "today": false
-   }
-  ],
-  [
-   {
     "c": 2,
     "day": 1,
     "today": false
    },
    {
-    "c": 3,
+    "c": 5,
     "day": 2,
     "today": false
    },
    {
-    "c": 5,
+    "c": 6,
     "day": 3,
     "today": false
    },
@@ -111,45 +74,58 @@
   ],
   [
    {
-    "c": 1,
+    "c": 3,
     "day": 8,
     "today": false
    },
    {
-    "c": 2,
+    "c": 12,
     "day": 9,
     "today": false
    },
    {
-    "c": 0,
+    "c": 4,
     "day": 10,
     "today": false
    },
    {
-    "c": 0,
+    "c": 3,
     "day": 11,
     "today": false
    },
    {
-    "c": 0,
+    "c": 3,
     "day": 12,
     "today": false
    },
    {
-    "c": 0,
+    "c": 4,
     "day": 13,
     "today": false
    },
    {
-    "c": 0,
+    "c": 4,
     "day": 14,
     "today": false
    }
+  ],
+  [
+   {
+    "c": 1,
+    "day": 15,
+    "today": true
+   },
+   null,
+   null,
+   null,
+   null,
+   null,
+   null
   ]
  ],
  "streak": {
-  "current": 0,
-  "longest": 69
+  "current": 9,
+  "longest": 9
  },
  "pins": [
   {
@@ -157,7 +133,7 @@
    "url": "https://github.com/caelestia-kde/caelestia",
    "text": "Caelestia ported to KDE Plasma 6",
    "fork": false,
-   "stars": 1088,
+   "stars": 1090,
    "language": "QML",
    "topics": [
     "caelestia",
@@ -186,7 +162,7 @@
    "url": "https://github.com/caelestia-kde/caelestia",
    "text": "Caelestia ported to KDE Plasma 6",
    "fork": false,
-   "stars": 1088,
+   "stars": 1090,
    "language": "QML",
    "topics": [
     "caelestia",
