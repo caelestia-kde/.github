@@ -1,7 +1,7 @@
 {
- "key": "5f01ea55",
- "stars": 1120,
- "contributions": 2822,
+ "key": "600682a2",
+ "stars": 1121,
+ "contributions": 254,
  "repos": 3,
  "followers": 5,
  "languages": [
@@ -37,119 +37,95 @@
  "days": [
   [
    {
-    "c": 3,
-    "day": 1,
-    "today": false
-   },
-   {
-    "c": 16,
-    "day": 2,
-    "today": false
-   },
-   {
-    "c": 26,
-    "day": 3,
-    "today": false
-   },
-   {
-    "c": 3,
-    "day": 4,
-    "today": false
-   },
-   {
-    "c": 3,
-    "day": 5,
-    "today": false
-   },
-   {
     "c": 2,
-    "day": 6,
-    "today": false
-   },
-   {
-    "c": 37,
-    "day": 7,
-    "today": false
-   }
-  ],
-  [
-   {
-    "c": 55,
     "day": 8,
     "today": false
    },
    {
-    "c": 51,
+    "c": 12,
     "day": 9,
     "today": false
    },
    {
-    "c": 5,
+    "c": 4,
     "day": 10,
     "today": false
    },
    {
-    "c": 4,
+    "c": 3,
     "day": 11,
     "today": false
    },
    {
-    "c": 2,
+    "c": 3,
     "day": 12,
     "today": false
    },
    {
-    "c": 9,
+    "c": 4,
     "day": 13,
     "today": false
    },
    {
-    "c": 3,
+    "c": 4,
     "day": 14,
     "today": false
    }
   ],
   [
    {
-    "c": 40,
+    "c": 4,
     "day": 15,
     "today": false
    },
    {
-    "c": 41,
+    "c": 37,
     "day": 16,
     "today": false
    },
    {
-    "c": 28,
+    "c": 65,
     "day": 17,
     "today": false
    },
    {
-    "c": 0,
+    "c": 7,
     "day": 18,
     "today": false
    },
    {
-    "c": 0,
+    "c": 3,
     "day": 19,
     "today": false
    },
    {
-    "c": 0,
+    "c": 3,
     "day": 20,
     "today": false
    },
    {
-    "c": 0,
+    "c": 4,
     "day": 21,
     "today": false
    }
+  ],
+  [
+   {
+    "c": 1,
+    "day": 22,
+    "today": true
+   },
+   null,
+   null,
+   null,
+   null,
+   null,
+   null
   ]
  ],
  "streak": {
-  "current": 0,
-  "longest": 83
+  "current": 15,
+  "longest": 15
  },
  "pins": [
   {
@@ -157,7 +133,7 @@
    "url": "https://github.com/caelestia-kde/caelestia",
    "text": "Caelestia ported to KDE Plasma 6",
    "fork": false,
-   "stars": 1114,
+   "stars": 1115,
    "language": "QML",
    "topics": [
     "caelestia",
@@ -186,7 +162,7 @@
    "url": "https://github.com/caelestia-kde/caelestia",
    "text": "Caelestia ported to KDE Plasma 6",
    "fork": false,
-   "stars": 1114,
+   "stars": 1115,
    "language": "QML",
    "topics": [
     "caelestia",
